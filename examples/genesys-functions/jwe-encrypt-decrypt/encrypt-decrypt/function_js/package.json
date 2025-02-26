@@ -1,0 +1,18 @@
+{
+  "name": "jwe-encrypt-decrypt-action",
+  "version": "1.0.0",
+  "description": "",
+  "type": "commonjs",
+  "scripts": {
+    "zip": "zip -r function-jwe-encrypt-decrypt-action.zip src/ node_modules/",
+    "zipnodev": "npm install --omit=dev && zip -r function-jwe-encrypt-decrypt-action.zip src/ node_modules/ && npm install",
+    "localtest1": "node ../test/test_function_js.mjs ../test/data1.json ../test/context.json",
+    "localtest2": "node ../test/test_function_js.mjs ../test/data2.json ../test/context.json",
+    "slspackage": "sls package",
+    "slslocaltest1": "sls invoke local --function echo --path ../test/data1.json --contextPath ../test/context.json",
+    "slslocaltest2": "sls invoke local --function echo --path ../test/data2.json --contextPath ../test/context.json"
+  },
+  "dependencies": {
+    "node-jose": "^2.2.0"
+  }
+}
