@@ -39,7 +39,7 @@
         var queryStringData = {
             response_type : "token",
             client_id : CLIENT_ID,
-            redirect_uri : "http://erikkreigh-informa.github.io/examples/authorization/callback"
+            redirect_uri : "http://erikkreigh-informa.github.io/oauth2/callback"
         }
 // >> END oauth-implicit-step-1
         window.location.replace(`https://login.${ENVIRONMENT}/oauth/authorize?` + jQuery.param(queryStringData));
