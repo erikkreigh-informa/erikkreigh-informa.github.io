@@ -136,22 +136,8 @@
             <h2>Custom Reports</h2>
             <div>
                 <div>
-                    <button type="button">GS SSC UK Per Year</button>
+                    <button type="button" onclick="gSSCUkPerYearOnClick()">GS SSC UK Per Year</button>
                 </div>
-            </div>
-        </section>
-
-        <section class="manual-example">
-            <h2>Manual Tester</h2>
-            <div class="form-group conversation-id">
-                <label for="conversation-id">Conversation ID:</label>
-                <input type="text" class="form-control" id="conversation-id">
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-primary">Submit</button>
-            </div>
-            <div class="form-group">
-                <div class="tester-note">[Note:] This tester intentionally bypasses client-side permission checks.</div>
             </div>
         </section>
 
@@ -601,6 +587,11 @@
                     return result;
                 }
             });
+            
+            function gSSCUkPerYearOnClick() {
+                alert("Dummy function triggered!");
+                console.log("Dummy function executed.");
+            }
         </script>
     </body>
 </html>
