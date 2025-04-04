@@ -244,6 +244,7 @@
                         let reloadingEl = document.querySelector('.reloading');
                         let conversationsTable = document.querySelector('table.interactions');
                         let conversationsTableBody = conversationsTable.querySelector('tbody');
+                        console.log("EK set query selector");
                         let gsSSCUKPerYearEl = document.querySelector('button.gs-ssc-uk-per-year');
 
                         setHidden(authenticatingEl, true);
@@ -302,12 +303,14 @@
                         }
 
                         function reportGSSSCUKPerYear() {
+                            console.log("EK fucntion reportGSSSCUKPerYear start");
                             getGSSSCUkPerYear().then(function(){
                             }
                         }
-
+                        
                         reloadButtonEl.addEventListener('click', reloadInteractions);
-
+                        
+                        console.log("EK add event listener");
                         gsSSCUKPerYearEl.addEventListener('click', reportGSSSCUKPerYear);
 
                         // Trigger initial fetch of interactions, will set state accordingly (i.e. disable the button)
@@ -569,6 +572,7 @@
                 }
 
                 function getGSSSCUkPerYear() {
+                    console.log("EK getGSSSCUKPerYear start");
                     let intervalEnd = new Date();
                     let intervalStart = (new Date(new Date().setDate(intervalEnd.getDate() - numDays)));
 
@@ -595,6 +599,8 @@
                         "interval": "2024-12-01T06:00:00.000Z/2025-01-01T06:00:00.000Z",
                         "timeZone": "America/Chicago"
                     }
+
+                    console.log("EK query set");
 
                     return new platformClient.AnalyticsApi().postAnalyticsFlowsAggregatesQuery(query)
                         .then(function (results) {
