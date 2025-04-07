@@ -140,7 +140,7 @@
             <h2>Custom Reports</h2>
             <div>
                 <div>
-                    <button type="button" class="button.gs-ssc-uk-per-year btn btn-primary">GS SSC UK Per Year</button>
+                    <button type="button" onclick="getGSSSCUkPerYear()" class="button.gs-ssc-uk-per-year btn btn-primary">GS SSC UK Per Year</button>
                 </div>
             </div>
         </section>
@@ -244,8 +244,6 @@
                         let reloadingEl = document.querySelector('.reloading');
                         let conversationsTable = document.querySelector('table.interactions');
                         let conversationsTableBody = conversationsTable.querySelector('tbody');
-                        console.log("EK set query selector");
-                        let gsSSCUKPerYearEl = document.querySelector('button.gs-ssc-uk-per-year');
 
                         setHidden(authenticatingEl, true);
 
@@ -300,12 +298,6 @@
                                 setErrorState('Failed to fetch your conversations');
                                 reloadButtonEl.disabled = false;
                             });
-                        }
-
-                        function reportGSSSCUKPerYear() {
-                            console.log("EK fucntion reportGSSSCUKPerYear start");
-                            getGSSSCUkPerYear().then(function(){
-                            })
                         }
                         
                         reloadButtonEl.addEventListener('click', reloadInteractions);
