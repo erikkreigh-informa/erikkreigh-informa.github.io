@@ -37,10 +37,6 @@
                 justify-content: space-between;
             }
 
-            button.gs-ssc-uk-per-year{
-                align-self: center;
-            }
-
             button.reload-interactions {
                 align-self: center;
             }
@@ -136,15 +132,6 @@
             </section>
         </section>
 
-        <section class="gsSSCUKPerYearReport">
-            <h2>Custom Reports</h2>
-            <div>
-                <div>
-                    <button type="button" class="button.gs-ssc-uk-per-year btn btn-primary">GS SSC UK Per Year</button>
-                </div>
-            </div>
-        </section>
-
         <section class="manual-example">
             <h2>Manual Tester</h2>
             <div class="form-group conversation-id">
@@ -204,11 +191,6 @@
                     if (conversationId) {
                         clientApp.conversations.showInteractionDetails(conversationId);
                     }
-                    getGSSSCUkPerYear();
-                });
-
-                document.querySelector('.gsSSCUKPerYearReport button').addEventListener('click', function() {
-                    getGSSSCUkPerYear();
                 });
 
                 // Authenticate with Genesys Cloud
@@ -247,10 +229,8 @@
                         let interactionsHeaderEl = document.querySelector('section.interactions-example .header');
                         let reloadButtonEl = document.querySelector('button.reload-interactions');
                         let reloadingEl = document.querySelector('.reloading');
-                        //let gsSSCUKPerYearButtonEl= document.querySelector(button.gs-ssc-uk-per-year');
                         let conversationsTable = document.querySelector('table.interactions');
                         let conversationsTableBody = conversationsTable.querySelector('tbody');
-                        console.log("EK " gsSSCUKPerYearButtonEl.stringify());
 
                         setHidden(authenticatingEl, true);
 
@@ -305,17 +285,9 @@
                                 setErrorState('Failed to fetch your conversations');
                                 reloadButtonEl.disabled = false;
                             });
-                            getGSSSCUkPerYear();
                         }
 
-                        function reportGSSSCUKPerYear() {
-                            
-                        }
-                        
                         reloadButtonEl.addEventListener('click', reloadInteractions);
-                        
-                        console.log("EK add event listener");
-                        gsSSCUKPerYearButtonEl.addEventListener('click', reportGSSSCUKPerYear);
 
                         // Trigger initial fetch of interactions, will set state accordingly (i.e. disable the button)
                         reloadInteractions();
@@ -620,43 +592,6 @@
                     return result;
                 }
             });
-
-            function getGSSSCUkPerYear() {
-                console.log("EK getGSSSCUKPerYear start");
-                let intervalEnd = new Date();
-                let intervalStart = (new Date(new Date().setDate(intervalEnd.getDate() - numDays)));
-    
-                let query = {
-                    "filter": {
-                        "type": "and",
-                        "predicates": [
-                            {
-                                "type": "dimension",
-                                "dimension": "flowId",
-                                "value": "53ef8712-dbac-4a38-b5cf-03e8f819a222"
-                            },
-                            {
-                                "dimension": "mediaType",
-                                "value": "voice"
-                            }
-                        ],
-                        "clauses": []
-                    },
-                    "metrics": [
-                        "tFlow"
-                    ],
-                    "granularity": "PT60M",
-                    "interval": "2024-12-01T06:00:00.000Z/2025-01-01T06:00:00.000Z",
-                    "timeZone": "America/Chicago"
-                }
-    
-                console.log("EK query set");
-    
-                return new platformClient.AnalyticsApi().postAnalyticsFlowsAggregatesQuery(query)
-                    .then(function (results) {
-                    }
-                );
-            }
         </script>
     </body>
 </html>
