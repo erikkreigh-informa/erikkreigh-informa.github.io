@@ -136,7 +136,7 @@
             </section>
         </section>
 
-        <section>
+        <section class="gsSSCUKPerYearReport">
             <h2>Custom Reports</h2>
             <div>
                 <div>
@@ -206,6 +206,10 @@
                     }
                 });
 
+                document.querySelector('.gsSSCUKPerYearReport button').addEventListener('click', function() {
+                    getGSSSCUkPerYear();
+                });
+
                 // Authenticate with Genesys Cloud
                 let authenticatingEl = document.querySelector('.authenticating');
                 setHidden(authenticatingEl, false);
@@ -242,7 +246,7 @@
                         let interactionsHeaderEl = document.querySelector('section.interactions-example .header');
                         let reloadButtonEl = document.querySelector('button.reload-interactions');
                         let reloadingEl = document.querySelector('.reloading');
-                        let gsSSCUKPerYearButtonEl= document.querySelector(button.gs-ssc-uk-per-year');
+                        //let gsSSCUKPerYearButtonEl= document.querySelector(button.gs-ssc-uk-per-year');
                         let conversationsTable = document.querySelector('table.interactions');
                         let conversationsTableBody = conversationsTable.querySelector('tbody');
                         console.log("EK " gsSSCUKPerYearButtonEl.stringify());
