@@ -563,43 +563,6 @@
                     );
                 }
 
-                function getGSSSCUkPerYear() {
-                    console.log("EK getGSSSCUKPerYear start");
-                    let intervalEnd = new Date();
-                    let intervalStart = (new Date(new Date().setDate(intervalEnd.getDate() - numDays)));
-
-                    let query = {
-                        "filter": {
-                            "type": "and",
-                            "predicates": [
-                                {
-                                    "type": "dimension",
-                                    "dimension": "flowId",
-                                    "value": "53ef8712-dbac-4a38-b5cf-03e8f819a222"
-                                },
-                                {
-                                    "dimension": "mediaType",
-                                    "value": "voice"
-                                }
-                            ],
-                            "clauses": []
-                        },
-                        "metrics": [
-                            "tFlow"
-                        ],
-                        "granularity": "PT60M",
-                        "interval": "2024-12-01T06:00:00.000Z/2025-01-01T06:00:00.000Z",
-                        "timeZone": "America/Chicago"
-                    }
-
-                    console.log("EK query set");
-
-                    return new platformClient.AnalyticsApi().postAnalyticsFlowsAggregatesQuery(query)
-                        .then(function (results) {
-                        }
-                    );
-                }
-
                 function getMostRecentParticipant(conversation, participantPurpose) {
                     if (!conversation.participants) {
                         return null;
@@ -645,6 +608,43 @@
                     return result;
                 }
             });
+
+            function getGSSSCUkPerYear() {
+                    console.log("EK getGSSSCUKPerYear start");
+                    let intervalEnd = new Date();
+                    let intervalStart = (new Date(new Date().setDate(intervalEnd.getDate() - numDays)));
+
+                    let query = {
+                        "filter": {
+                            "type": "and",
+                            "predicates": [
+                                {
+                                    "type": "dimension",
+                                    "dimension": "flowId",
+                                    "value": "53ef8712-dbac-4a38-b5cf-03e8f819a222"
+                                },
+                                {
+                                    "dimension": "mediaType",
+                                    "value": "voice"
+                                }
+                            ],
+                            "clauses": []
+                        },
+                        "metrics": [
+                            "tFlow"
+                        ],
+                        "granularity": "PT60M",
+                        "interval": "2024-12-01T06:00:00.000Z/2025-01-01T06:00:00.000Z",
+                        "timeZone": "America/Chicago"
+                    }
+
+                    console.log("EK query set");
+
+                    return new platformClient.AnalyticsApi().postAnalyticsFlowsAggregatesQuery(query)
+                        .then(function (results) {
+                        }
+                    );
+                }
         </script>
     </body>
 </html>
