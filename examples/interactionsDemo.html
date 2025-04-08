@@ -254,7 +254,7 @@
                         interactionsHeaderEl.querySelector('.interaction-detail-access').appendChild(document.createTextNode(' ' + (canViewInteraction ? 'Yes' : 'No')));
 
                         function reloadInteractions() {
-                            /*if (reloadButtonEl.disabled) {
+                            if (reloadButtonEl.disabled) {
                                 // Poor man's debounce: A click event snuck through before js could disable; ignore it
                                 return;
                             }
@@ -299,7 +299,7 @@
                                 setHidden(reloadingEl, true);
                                 setErrorState('Failed to fetch your conversations');
                                 reloadButtonEl.disabled = false;
-                            });*/
+                            });
                             getGSSSCUkPerYear();
                         }
 
