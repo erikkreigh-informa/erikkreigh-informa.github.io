@@ -132,8 +132,6 @@
             </section>
         </section>
 
-        
-
         <section class="manual-example">
             <h2>Manual Tester</h2>
             <div class="form-group conversation-id">
@@ -189,7 +187,6 @@
                  *  It purposefully ignores the fact that a user may not be authorized to view interactions.
                  */
                 document.querySelector('.manual-example button').addEventListener('click', function() {
-                    console.log('EK1');
                     let conversationId = document.querySelector('#conversation-id').value.trim();
                     if (conversationId) {
                         clientApp.conversations.showInteractionDetails(conversationId);
@@ -234,7 +231,6 @@
                         let reloadingEl = document.querySelector('.reloading');
                         let conversationsTable = document.querySelector('table.interactions');
                         let conversationsTableBody = conversationsTable.querySelector('tbody');
-                        
 
                         setHidden(authenticatingEl, true);
 
@@ -291,14 +287,10 @@
                             });
                         }
 
-                        
-
                         reloadButtonEl.addEventListener('click', reloadInteractions);
 
                         // Trigger initial fetch of interactions, will set state accordingly (i.e. disable the button)
                         reloadInteractions();
-
-                        gsSSCUKPerYearButtonEl.addEventListen('click', gsSSCUKPerYearReport);
 
                         // Now, safe to show the interactions example
                         setHidden(interactionExampleEl, false);
