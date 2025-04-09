@@ -194,7 +194,7 @@
                  *  It purposefully ignores the fact that a user may not be authorized to view interactions.
                  */
                 document.querySelector('.manual-example button').addEventListener('click', function() {
-                    console.log('EK3');
+                    console.log('EK4');
                     let conversationId = document.querySelector('#conversation-id').value.trim();
                     if (conversationId) {
                         clientApp.conversations.showInteractionDetails(conversationId);
@@ -202,7 +202,17 @@
                 });
 
                 document.querySelector('.custom-reports button').addEventListener('click', function() {
-                    console.log('EK1');
+                    console.log('EK2');
+                    getGSSSCUKPerYear().then(function (dailyCalls) {
+                        if (dailyCalls.length === 0) {
+                            setErrorState('No calls for DNIS');
+                            return;
+                        }
+                        dailyCalls.forEach(function (currDay) {
+                        });
+                    }).catch(function (reason) {
+                        setErrorState('Failed to fetch your calls');
+                    });
                 });
 
                 // Authenticate with Genesys Cloud
@@ -557,6 +567,33 @@
                             }
                         }
                     );
+                }
+
+                //Get all call for the selected year
+                function getGSSSCUKPerYear() {
+                    let query = {
+                        "filter": {
+                            "type": "and",
+                            "predicates": [
+                                {
+                                    "type": "dimension",
+                                    "dimension": "flowId",
+                                    "value": "53ef8712-dbac-4a38-b5cf-03e8f819a222"
+                                },
+                                {
+                                    "dimension": "mediaType",
+                                    "value": "voice"
+                                }
+                            ],
+                            "clauses": []
+                        },
+                        "metrics": [
+                            "tFlow"
+                        ],
+                        "granularity": "PT60M",
+                        "interval": "2024-12-01T06:00:00.000Z/2025-01-01T06:00:00.000Z",
+                        "timeZone": "America/Chicago"
+                    };
                 }
 
                 function getMostRecentParticipant(conversation, participantPurpose) {
