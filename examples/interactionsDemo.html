@@ -194,11 +194,15 @@
                  *  It purposefully ignores the fact that a user may not be authorized to view interactions.
                  */
                 document.querySelector('.manual-example button').addEventListener('click', function() {
-                    console.log('EK2');
+                    console.log('EK3');
                     let conversationId = document.querySelector('#conversation-id').value.trim();
                     if (conversationId) {
                         clientApp.conversations.showInteractionDetails(conversationId);
                     }
+                });
+
+                document.querySelector('.custom-reports button').addEventListener('click', function() {
+                    console.log('EK1');
                 });
 
                 // Authenticate with Genesys Cloud
