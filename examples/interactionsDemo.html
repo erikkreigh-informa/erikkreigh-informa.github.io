@@ -132,6 +132,13 @@
             </section>
         </section>
 
+        <section class="custom-reports">
+            <h2>Custom Reports</h2>
+            <div class="gssscukperyear-report">
+                <button type="button" class="btn btn-primary">GS SSC Uk Per Year</button>
+            </div>
+        </section>
+
         <section class="manual-example">
             <h2>Manual Tester</h2>
             <div class="form-group conversation-id">
@@ -187,7 +194,7 @@
                  *  It purposefully ignores the fact that a user may not be authorized to view interactions.
                  */
                 document.querySelector('.manual-example button').addEventListener('click', function() {
-                    console.log('EK1');
+                    console.log('EK2');
                     let conversationId = document.querySelector('#conversation-id').value.trim();
                     if (conversationId) {
                         clientApp.conversations.showInteractionDetails(conversationId);
