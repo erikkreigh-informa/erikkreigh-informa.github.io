@@ -194,7 +194,7 @@
                  *  It purposefully ignores the fact that a user may not be authorized to view interactions.
                  */
                 document.querySelector('.manual-example button').addEventListener('click', function() {
-                    console.log('EK4');
+                    console.log('EK5');
                     let conversationId = document.querySelector('#conversation-id').value.trim();
                     if (conversationId) {
                         clientApp.conversations.showInteractionDetails(conversationId);
@@ -202,16 +202,10 @@
                 });
 
                 document.querySelector('.custom-reports button').addEventListener('click', function() {
-                    console.log('EK2');
-                    getGSSSCUKPerYear().then(function (dailyCalls) {
-                        if (dailyCalls.length === 0) {
-                            setErrorState('No calls for DNIS');
-                            return;
-                        }
-                        dailyCalls.forEach(function (currDay) {
-                        });
+                    console.log('EK3');
+                    getGSSSCUKPerYear().then(function (conversations) {
                     }).catch(function (reason) {
-                        setErrorState('Failed to fetch your calls');
+                        setErrorState('Failed to fetch your report');
                     });
                 });
 
@@ -594,6 +588,11 @@
                         "interval": "2024-12-01T06:00:00.000Z/2025-01-01T06:00:00.000Z",
                         "timeZone": "America/Chicago"
                     };
+
+                    return new platformClient.AnalyticsApi().postAnalyticsFlowsAggregatesQuery(query)
+                        .then(function (results) {
+                        }
+                    );
                 }
 
                 function getMostRecentParticipant(conversation, participantPurpose) {
