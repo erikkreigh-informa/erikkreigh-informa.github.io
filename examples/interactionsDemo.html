@@ -631,13 +631,13 @@
                         };
 
                         return new platformClient.AnalyticsApi().postAnalyticsFlowsAggregatesQuery(query).then(function (results) {
-                            /*results.results.data.forEach(function (interval) {
+                            /*results.results[0].data.forEach(function (interval) {
                                 var getInterval = interval.interval.substring(11, 13);
                                 console.log("EK1 ", getInterval);
                                 intervalCounts[getInterval] = intervalCounts[getInterval] + results.metrics[0].stats.count;
                                 console.log("EK2 ", intervalCounts[getInterval]);
                             });*/
-                            console.log("EK ", JSON.stringify(results));
+                            console.log("EK ", JSON.stringify(results.results[0].data));
                         });
                     });
                 }
