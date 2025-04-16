@@ -632,7 +632,7 @@
 
                         return new platformClient.AnalyticsApi().postAnalyticsFlowsAggregatesQuery(query).then(function (results) {
                             results.results[0].data.forEach(function (thisInterval) {
-                                var getInterval = thisInterval.interval.substring(11, 13);
+                                var getInterval = parseInt(thisInterval.interval.substring(11, 13));
                                 console.log("EK1 ", getInterval);
                                 intervalCounts[getInterval] = intervalCounts[getInterval] + parseInt(thisInterval.metrics[0].stats.count);
                                 console.log("EK2 ", intervalCounts[getInterval]);
