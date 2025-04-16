@@ -564,7 +564,7 @@
 
                 //Get all call for the selected year
                 function getGSSSCUKPerYear() {
-                    var countIntervals = [
+                    const countIntervals = [
                         "00:00-01:00",
                         "01:00-02:00",
                         "02:00-03:00",
@@ -590,7 +590,7 @@
                         "22:00-23:00",
                         "23:00-00:00"
                     ];
-                    var intervalCounts = [];
+                    const intervalCounts = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
                     const queryIntervals = [
                         "2024-01-01T06:00:00.000Z/2024-02-01T06:00:00.000Z",
                         "2024-02-01T06:00:00.000Z/2024-03-01T06:00:00.000Z",
@@ -634,7 +634,7 @@
                             results.results[0].data.forEach(function (thisInterval) {
                                 var getInterval = thisInterval.interval.substring(11, 13);
                                 console.log("EK1 ", getInterval);
-                                intervalCounts[getInterval] = intervalCounts[getInterval] + thisInterval.metrics[0].stats.count;
+                                intervalCounts[getInterval] = intervalCounts[getInterval] + parseInt(thisInterval.metrics[0].stats.count);
                                 console.log("EK2 ", intervalCounts[getInterval]);
                             });
                             //console.log("EK ", JSON.stringify(results.results[0].data));
