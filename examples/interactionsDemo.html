@@ -571,11 +571,7 @@
                         "sortOrder": "asc", // String | Note: results are sorted by name.
                         "divisionId": ["8d79a253-6748-4b73-8ee2-0a9c7ffb3f90"], // [String] | Include only queues in the specified division ID(s)
                     }
-                    platformClient.RoutingApi().getRoutingQueues(opts).then((data) => {
-                        console.log(`getRoutingQueues success! data: ${JSON.stringify(data, null, 2)}`);
-                    }).catch((err) => {
-                        console.log("There was a failure calling getRoutingQueues");
-                        console.error(err);
+                    return new platformClient.RoutingApi().getRoutingQueues(opts).then(function (results) {
                     });
                     const countIntervals = [
                         "00:00-01:00",
@@ -651,6 +647,7 @@
                             return;
                         });
                     });
+                    const csvReport = {};
                 }
 
                 function getMostRecentParticipant(conversation, participantPurpose) {
