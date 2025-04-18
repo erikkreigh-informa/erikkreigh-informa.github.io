@@ -564,6 +564,12 @@
 
                 //Get all call for the selected year
                 function getGSSSCUKPerYear() {
+                    let options = {
+                        "pageNumber": 1,
+                        "pageSize": 500,
+                        "sortOrder": "asc",
+                        "divisionId": ["8d79a253-6748-4b73-8ee2-0a9c7ffb3f90"]
+                    };
                     const countIntervals = [
                         "00:00-01:00",
                         "01:00-02:00",
