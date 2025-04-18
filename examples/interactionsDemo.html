@@ -573,6 +573,7 @@
                     var queueIds = [];
                     new platformClient.RoutingApi().getRoutingQueues(options).then(function (results) {
                         results.entities.forEach(function (thisQueue) {
+                            console.log("EK thisQueue ", JSON.stringify(thisQueue));
                             queueIds.push(thisQueue.id);
                         });
                         return;
@@ -653,7 +654,7 @@
                         });
                     });
                     const csvReport = {};
-                    console.log("EK interval counts ", JSON.stringify(intervalcounts));
+                    console.log("EK interval counts ", JSON.stringify(intervalCounts));
                 }
 
                 function getMostRecentParticipant(conversation, participantPurpose) {
