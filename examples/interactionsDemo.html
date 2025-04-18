@@ -570,9 +570,14 @@
                         "sortOrder": "asc",
                         "divisionId": ["8d79a253-6748-4b73-8ee2-0a9c7ffb3f90"]
                     };
-                    return new platformClient.RoutingApi().getRoutingQueues(options).then(function (results) {
-                        console.log("EK queue api call ", JSON.stringify(results)); 
+                    var queueIds = [];
+                    new platformClient.RoutingApi().getRoutingQueues(options).then(function (results) {
+                        results.entities.forEach(function (thisQueue) {
+                            queueIds.push(thisQueue.id);
+                        });
+                        return;
                     });
+                    console.log("EK queue ids are ", JOSON.stringify(queueIds));
                     const countIntervals = [
                         "00:00-01:00",
                         "01:00-02:00",
