@@ -570,6 +570,9 @@
                         "sortOrder": "asc",
                         "divisionId": ["8d79a253-6748-4b73-8ee2-0a9c7ffb3f90"]
                     };
+                    return new platformClient.RoutingApi().getRoutingQueues(options).then(function (results) {
+                        console.log("EK queue api call ", JSON.stringify(results)); 
+                    });
                     const countIntervals = [
                         "00:00-01:00",
                         "01:00-02:00",
@@ -644,6 +647,8 @@
                             return;
                         });
                     });
+                    const csvReport = {};
+                    console.log("EK interval counts ", JSON.stringify(intervalcounts);
                 }
 
                 function getMostRecentParticipant(conversation, participantPurpose) {
