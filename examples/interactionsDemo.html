@@ -573,10 +573,11 @@
                     var queueIds = [];
                     new platformClient.RoutingApi().getRoutingQueues(options).then(function (results) {
                         results.entities.forEach(function (thisQueue) {
-                            console.log("EK thisQueue ", JSON.stringify(thisQueue));
                             queueIds.push(thisQueue.id);
                         });
-                        return;
+                        return Promise.all(queueIds).then(function () {
+                            return results.entities;
+                        });
                     });
                     console.log("EK queue ids are ", JSON.stringify(queueIds));
                     const countIntervals = [
