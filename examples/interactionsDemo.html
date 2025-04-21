@@ -637,16 +637,17 @@
                                     "interval": currentInterval,
                                     "timeZone": "Europe/London"
                                 };
-        
-                                return new platformClient.AnalyticsApi().postAnalyticsFlowsAggregatesQuery(query).then(function (results) {
-                                    results.results[0].data.forEach(function (thisInterval) {
-                                        var getInterval = parseInt(thisInterval.interval.substring(11, 13));
-                                        intervalCounts[getInterval] = intervalCounts[getInterval] + parseInt(thisInterval.metrics[0].stats.count);
+                                try {
+                                    return new platformClient.AnalyticsApi().postAnalyticsFlowsAggregatesQuery(query).then(function (results) {
+                                        results.results[0].data.forEach(function (thisInterval) {
+                                            var getInterval = parseInt(thisInterval.interval.substring(11, 13));
+                                            intervalCounts[getInterval] = intervalCounts[getInterval] + parseInt(thisInterval.metrics[0].stats.count);
                                     });
-                                    return;
-                                }).catch(function (err) {
-                                    console.log("EK api response error: ", JSON.stringify(err));
                                 });
+                                } catch (err) {
+                                    console.log("EK api response error: ", JSON.stringify(err));
+                                    throw true;
+                                }
                             });
                         });
                     });
@@ -698,6 +699,10 @@
                     }
 
                     return result;
+                }
+
+                function sleep(ms) {
+                    return new Promise(resolve => setTimeout(resolve, ms));
                 }
             });
         </script>
