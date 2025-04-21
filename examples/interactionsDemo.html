@@ -644,6 +644,8 @@
                                         intervalCounts[getInterval] = intervalCounts[getInterval] + parseInt(thisInterval.metrics[0].stats.count);
                                     });
                                     return;
+                                }).catch(function (err) {
+                                    console.log("EK api response error: ", JSON.stringify(err));
                                 });
                             });
                         });
