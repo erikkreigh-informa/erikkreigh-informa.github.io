@@ -610,47 +610,52 @@
                         "2024-11-01T06:00:00.000Z/2024-12-01T06:00:00.000Z",
                         "2024-12-01T06:00:00.000Z/2025-01-01T06:00:00.000Z"
                     ];
-                    new platformClient.RoutingApi().getRoutingQueues(options).then(function (results) {
-                        results.entities.forEach(function (thisQueue) {
-                           console.log("EK queue id is: ", thisQueue.id);
-                            queryIntervals.forEach(function(currentInterval) {
-                                let query = {
-                                "filter": {
-                                    "type": "and",
-                                    "predicates": [
-                                        {
-                                            "type": "dimension",
-                                            "dimension": "flowId",
-                                            "value": thisQueue.id
-                                        },
-                                        {
-                                            "dimension": "mediaType",
-                                            "value": "voice"
-                                        }
+                    try {
+                        new platformClient.RoutingApi().getRoutingQueues(options).then(function (results) {
+                            results.entities.forEach(function (thisQueue) {
+                               console.log("EK queue id is: ", thisQueue.id);
+                                queryIntervals.forEach(function(currentInterval) {
+                                    let query = {
+                                    "filter": {
+                                        "type": "and",
+                                        "predicates": [
+                                            {
+                                                "type": "dimension",
+                                                "dimension": "flowId",
+                                                "value": thisQueue.id
+                                            },
+                                            {
+                                                "dimension": "mediaType",
+                                                "value": "voice"
+                                            }
+                                        ],
+                                        "clauses": []
+                                    },
+                                    "metrics": [
+                                        "tFlow"
                                     ],
-                                    "clauses": []
-                                },
-                                "metrics": [
-                                    "tFlow"
-                                ],
-                                    "granularity": "PT60M",
-                                    "interval": currentInterval,
-                                    "timeZone": "Europe/London"
-                                };
-                                try {
-                                    return new platformClient.AnalyticsApi().postAnalyticsFlowsAggregatesQuery(query).then(function (results) {
-                                        results.results[0].data.forEach(function (thisInterval) {
-                                            var getInterval = parseInt(thisInterval.interval.substring(11, 13));
-                                            intervalCounts[getInterval] = intervalCounts[getInterval] + parseInt(thisInterval.metrics[0].stats.count);
-                                    });
+                                        "granularity": "PT60M",
+                                        "interval": currentInterval,
+                                        "timeZone": "Europe/London"
+                                    };
+                                    try {
+                                        new platformClient.AnalyticsApi().postAnalyticsFlowsAggregatesQuery(query).then(function (results) {
+                                            results.results[0].data.forEach(function (thisInterval) {
+                                                var getInterval = parseInt(thisInterval.interval.substring(11, 13));
+                                                intervalCounts[getInterval] = intervalCounts[getInterval] + parseInt(thisInterval.metrics[0].stats.count);
+                                            });
+                                        });
+                                    } catch (err) {
+                                        console.log("EK api response error: ", JSON.stringify(err));
+                                        throw true;
+                                    }
                                 });
-                                } catch (err) {
-                                    console.log("EK api response error: ", JSON.stringify(err));
-                                    throw true;
-                                }
                             });
                         });
-                    });
+                    } catch (err) {
+                        console.log("EK api response error: ", JSON.stringify(err));
+                        throw true;
+                    }
                     const csvReport = {};
                     console.log("EK interval counts ", JSON.stringify(intervalCounts));
                     return csvReport;
