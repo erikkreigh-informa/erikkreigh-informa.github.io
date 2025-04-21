@@ -569,14 +569,6 @@
                         "sortOrder": "asc",
                         "divisionId": ["8d79a253-6748-4b73-8ee2-0a9c7ffb3f90"]
                     };
-                    var queueIds = [];
-                    Promise.allSettled(new platformClient.RoutingApi().getRoutingQueues(options).then(function (results) {
-                        results.entities.forEach(function (thisQueue) {
-                            queueIds.push(thisQueue.id);
-                        });
-                    })).then(function (promiseResults){
-                        console.log("EK queue ids are ", JSON.stringify(queueIds));
-                    });
                     const countIntervals = [
                         "00:00-01:00",
                         "01:00-02:00",
@@ -618,41 +610,47 @@
                         "2024-11-01T06:00:00.000Z/2024-12-01T06:00:00.000Z",
                         "2024-12-01T06:00:00.000Z/2025-01-01T06:00:00.000Z"
                     ];
-                    queryIntervals.forEach(function(currentInterval) {
-                        let query = {
-                        "filter": {
-                            "type": "and",
-                            "predicates": [
-                                {
-                                    "type": "dimension",
-                                    "dimension": "flowId",
-                                    "value": "53ef8712-dbac-4a38-b5cf-03e8f819a222"
+                    new platformClient.RoutingApi().getRoutingQueues(options).then(function (results) {
+                        results.entities.forEach(function (thisQueue) {
+                           console.log("EK queue id is: ", thisQueue.id);
+                            queryIntervals.forEach(function(currentInterval) {
+                                let query = {
+                                "filter": {
+                                    "type": "and",
+                                    "predicates": [
+                                        {
+                                            "type": "dimension",
+                                            "dimension": "flowId",
+                                            "value": thisQueue.id
+                                        },
+                                        {
+                                            "dimension": "mediaType",
+                                            "value": "voice"
+                                        }
+                                    ],
+                                    "clauses": []
                                 },
-                                {
-                                    "dimension": "mediaType",
-                                    "value": "voice"
-                                }
-                            ],
-                            "clauses": []
-                        },
-                        "metrics": [
-                            "tFlow"
-                        ],
-                            "granularity": "PT60M",
-                            "interval": currentInterval,
-                            "timeZone": "Europe/London"
-                        };
-
-                        return new platformClient.AnalyticsApi().postAnalyticsFlowsAggregatesQuery(query).then(function (results) {
-                            results.results[0].data.forEach(function (thisInterval) {
-                                var getInterval = parseInt(thisInterval.interval.substring(11, 13));
-                                intervalCounts[getInterval] = intervalCounts[getInterval] + parseInt(thisInterval.metrics[0].stats.count);
+                                "metrics": [
+                                    "tFlow"
+                                ],
+                                    "granularity": "PT60M",
+                                    "interval": currentInterval,
+                                    "timeZone": "Europe/London"
+                                };
+        
+                                return new platformClient.AnalyticsApi().postAnalyticsFlowsAggregatesQuery(query).then(function (results) {
+                                    results.results[0].data.forEach(function (thisInterval) {
+                                        var getInterval = parseInt(thisInterval.interval.substring(11, 13));
+                                        intervalCounts[getInterval] = intervalCounts[getInterval] + parseInt(thisInterval.metrics[0].stats.count);
+                                    });
+                                    return;
+                                });
                             });
-                            return;
                         });
                     });
                     const csvReport = {};
                     console.log("EK interval counts ", JSON.stringify(intervalCounts));
+                    return csvReport;
                 }
 
                 function getMostRecentParticipant(conversation, participantPurpose) {
