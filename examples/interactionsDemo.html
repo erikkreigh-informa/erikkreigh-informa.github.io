@@ -194,7 +194,6 @@
                  *  It purposefully ignores the fact that a user may not be authorized to view interactions.
                  */
                 document.querySelector('.manual-example button').addEventListener('click', function() {
-                    console.log('EK5');
                     let conversationId = document.querySelector('#conversation-id').value.trim();
                     if (conversationId) {
                         clientApp.conversations.showInteractionDetails(conversationId);
@@ -571,12 +570,9 @@
                         "divisionId": ["8d79a253-6748-4b73-8ee2-0a9c7ffb3f90"]
                     };
                     var queueIds = [];
-                    new platformClient.RoutingApi().getRoutingQueues(options).then(function (results) {
+                    await new platformClient.RoutingApi().getRoutingQueues(options).then(function (results) {
                         results.entities.forEach(function (thisQueue) {
                             queueIds.push(thisQueue.id);
-                        });
-                        return Promise.all(queueIds).then(function () {
-                            return results.entities;
                         });
                     });
                     console.log("EK queue ids are ", JSON.stringify(queueIds));
