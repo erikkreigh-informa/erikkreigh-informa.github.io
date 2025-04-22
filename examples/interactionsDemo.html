@@ -563,6 +563,8 @@
 
                 //Get all call for the selected year
                 function getGSSSCUKPerYear() {
+                    const reportingAPi = new platformClient.RoutingApi();
+                    const analyticsAPI = new platformClient.AnalyticsApi();
                     let options = {
                         "pageNumber": 1,
                         "pageSize": 500,
@@ -611,9 +613,8 @@
                         "2024-12-01T06:00:00.000Z/2025-01-01T06:00:00.000Z"
                     ];
                     try {
-                        new platformClient.RoutingApi().getRoutingQueues(options).then(function (results) {
+                        reportingAPI.getRoutingQueues(options).then(function (results) {
                             results.entities.forEach(function (thisQueue) {
-                               console.log("EK queue id is: ", thisQueue.id);
                                 queryIntervals.forEach(function(currentInterval) {
                                     let query = {
                                     "filter": {
@@ -639,7 +640,7 @@
                                         "timeZone": "Europe/London"
                                     };
                                     try {
-                                        new platformClient.AnalyticsApi().postAnalyticsFlowsAggregatesQuery(query).then(function (results) {
+                                        analyticsAPI.postAnalyticsFlowsAggregatesQuery(query).then(function (results) {
                                             results.results[0].data.forEach(function (thisInterval) {
                                                 var getInterval = parseInt(thisInterval.interval.substring(11, 13));
                                                 intervalCounts[getInterval] = intervalCounts[getInterval] + parseInt(thisInterval.metrics[0].stats.count);
@@ -647,7 +648,7 @@
                                         });
                                     } catch (err) {
                                         console.log("EK api response error: ", JSON.stringify(err));
-                                        throw true;
+                                        throw err;
                                     }
                                 });
                             });
