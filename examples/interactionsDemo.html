@@ -613,7 +613,7 @@
                         "2024-12-01T06:00:00.000Z/2025-01-01T06:00:00.000Z"
                     ];
                     try {
-                        await reportingAPI.getRoutingQueues(options).then(function (results) {
+                        reportingAPI.getRoutingQueues(options).then(function (results) {
                             results.entities.forEach(function (thisQueue) {
                                 queryIntervals.forEach(function(currentInterval) {
                                     let query = {
@@ -640,7 +640,7 @@
                                         "timeZone": "Europe/London"
                                     };
                                     try {
-                                       await analyticsAPI.postAnalyticsFlowsAggregatesQuery(query).then(function (results) {
+                                       analyticsAPI.postAnalyticsFlowsAggregatesQuery(query).then(function (results) {
                                             results.results[0].data.forEach(function (thisInterval) {
                                                 var getInterval = parseInt(thisInterval.interval.substring(11, 13));
                                                 intervalCounts[getInterval] = intervalCounts[getInterval] + parseInt(thisInterval.metrics[0].stats.count);
@@ -648,14 +648,12 @@
                                         });
                                     } catch (err) {
                                         console.log("EK api response error: ", JSON.stringify(err));
-                                        throw err;
                                     }
                                 });
                             });
                         });
                     } catch (err) {
                         console.log("EK api response error: ", JSON.stringify(err));
-                        throw err;
                     }
                     const csvReport = {};
                     console.log("EK interval counts ", JSON.stringify(intervalCounts));
